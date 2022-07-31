@@ -19,7 +19,7 @@ jobs:
         if: ${{ env.TAG }}
         run: |
           echo "ENVIRONMENT=prod" >> $GITHUB_ENV
-      
+          
       - name: Checkout without tag
         if: ${{ !env.TAG }}
         uses: actions/checkout@master
@@ -39,16 +39,17 @@ jobs:
       - name: Show system info
         run: |
           echo -e "system info: $(uname -a)"
-
       - uses: actions/checkout@v2
       - name: prepare
         id: test
         uses: vmactions/freebsd-vm@v0.1.8
         with:
           usesh: true
-          prepare: pkg install -y curl go gmake git openssl zip autoconf automake libtool
           run: |
-            go mod download
+            pkg update
+            free -h
+            pkg install -y bash go gmake git openssl zip autoconf automake libtool
+            chsh -s bash
             make generate
             BUILD_ENV=${{ env.ENVIRONMENT }} make build-freebsd
             zip -j ./omniedgecli-${{ github.ref_name }}-freebsd.zip ./out/omniedge
