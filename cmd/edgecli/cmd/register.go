@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	edge "github.com/omniedgeio/omniedge-cli"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
