@@ -3,7 +3,6 @@ package edgecli
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -40,13 +39,13 @@ func (s *RegisterService) Register(opt *RegisterOption) (*DeviceResponse, error)
 		deviceJson, _ := json.Marshal(resp.(*SuccessResponse).Data)
 		device := DeviceResponse{}
 		if err := json.Unmarshal(deviceJson, &device); err != nil {
-			return nil, errors.New(fmt.Sprintf("Fail to unmarshal response's data ,err is %+v", err))
+			return nil, fmt.Errorf("Fail to unmarshal response's data ,err is %+v", err)
 		}
 		log.Debugf("Registerdevice result is %+v", device)
 		return &device, nil
 	case *ErrorResponse:
-		return nil, errors.New(fmt.Sprintf("Fail to register device, error message: %s", resp.(*ErrorResponse).Message))
+		return nil, fmt.Errorf("Fail to register device, error message: %s", resp.(*ErrorResponse).Message)
 	default:
-		return nil, errors.New(fmt.Sprint("This client has some unpredictable problems, please contact the omniedge team."))
+		return nil, fmt.Errorf("This client has some unpredictable problems, please contact the omniedge team.")
 	}
 }

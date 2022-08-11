@@ -3,10 +3,10 @@ package edgecli
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type AuthResp struct {
@@ -62,14 +62,14 @@ func (s *AuthService) Login(opt *AuthOption) (*AuthResp, error) {
 		authJson, _ := json.Marshal(resp.(*SuccessResponse).Data)
 		auth := AuthResp{}
 		if err := json.Unmarshal(authJson, &auth); err != nil {
-			return nil, errors.New(fmt.Sprintf("Fail to unmarshal response's data ,err is %+v", err))
+			return nil, fmt.Errorf("Fail to unmarshal response's data ,err is %+v", err)
 		}
 		log.Debugf("auth token is %+v", auth)
 		return &auth, nil
 	case *ErrorResponse:
-		return nil, errors.New(fmt.Sprintf("Fail to login, error message: %s", resp.(*ErrorResponse).Message))
+		return nil, fmt.Errorf("Fail to login, error message: %s", resp.(*ErrorResponse).Message)
 	default:
-		return nil, errors.New(fmt.Sprint("This client has some unpredictable problems, please contact the omniedge team."))
+		return nil, fmt.Errorf("This client has some unpredictable problems, please contact the omniedge team.")
 	}
 }
 
@@ -90,13 +90,13 @@ func (s *AuthService) Refresh(opt *RefreshTokenOption) (*AuthResp, error) {
 		authJson, _ := json.Marshal(resp.(*SuccessResponse).Data)
 		auth := AuthResp{}
 		if err := json.Unmarshal(authJson, &auth); err != nil {
-			return nil, errors.New(fmt.Sprintf("Fail to unmarshal response's data ,err is %+v", err))
+			return nil, fmt.Errorf("Fail to unmarshal response's data ,err is %+v", err)
 		}
 		log.Debugf("auth token is %+v", auth)
 		return &auth, nil
 	case *ErrorResponse:
-		return nil, errors.New(fmt.Sprintf("Fail to login, error message: %s", resp.(*ErrorResponse).Message))
+		return nil, fmt.Errorf("Fail to login, error message: %s", resp.(*ErrorResponse).Message)
 	default:
-		return nil, errors.New(fmt.Sprint("This client has some unpredictable problems, please contact the omniedge team."))
+		return nil, fmt.Errorf("This client has some unpredictable problems, please contact the omniedge team.")
 	}
 }

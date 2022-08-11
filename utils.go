@@ -7,15 +7,16 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/panta/machineid"
-	log "github.com/sirupsen/logrus"
 	"net"
 	"os"
 	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/google/uuid"
+	"github.com/panta/machineid"
+	log "github.com/sirupsen/logrus"
 )
 
 var Env string
@@ -102,16 +103,16 @@ func getMacAddress() (string, error) {
 func RevealHardwareUUID() (string, error) {
 	id, err := machineid.ID()
 	if err != nil {
-		return "", errors.New(fmt.Sprintf("Fail to generate hardware id, err is %+v", err))
+		return "", fmt.Errorf("Fail to generate hardware id, err is %+v", err)
 	}
 	id = strings.ToLower(strings.Replace(id, "-", "", -1))
 	idBytes, err := hex.DecodeString(id)
 	if err != nil {
-		return "", errors.New(fmt.Sprintf("Fail to generate hardware id, err is %+v", err))
+		return "", fmt.Errorf("Fail to generate hardware id, err is %+v", err)
 	}
 	hardwareUUID, err := uuid.FromBytes(idBytes)
 	if err != nil {
-		return "", errors.New(fmt.Sprintf("Fail to generate hardware id, err is %+v", err))
+		return "", fmt.Errorf("Fail to generate hardware id, err is %+v", err)
 	}
 	return hardwareUUID.String(), nil
 }
@@ -122,12 +123,10 @@ func RevealHostName() string {
 		return ""
 	}
 	return name
-
 }
 
 func RevealOS() string {
 	return runtime.GOOS
-
 }
 
 func GenerateRandomMac() (string, error) {
@@ -154,7 +153,7 @@ func GetCurrentDeviceNetStatus(cidrStr string) (*DeviceNet, error) {
 	}
 	cidr, err := ParseCIDR(cidrStr)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Fail to parse cidr, %+v", err))
+		return nil, fmt.Errorf("Fail to parse cidr, %+v", err)
 	}
 	var ip, mac string
 	for _, netInterface := range netInterfaces {
