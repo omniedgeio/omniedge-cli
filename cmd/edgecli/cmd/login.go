@@ -2,13 +2,14 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strings"
+
 	edge "github.com/omniedgeio/omniedge-cli"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"golang.org/x/crypto/ssh/terminal"
-	"os"
-	"strings"
 )
 
 var loginCmd = &cobra.Command{

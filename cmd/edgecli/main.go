@@ -1,11 +1,12 @@
 package main
 
 import (
+	"os"
+	"os/user"
+
 	edgecli "github.com/omniedgeio/omniedge-cli"
 	rootCmd "github.com/omniedgeio/omniedge-cli/cmd/edgecli/cmd"
 	log "github.com/sirupsen/logrus"
-	"os"
-	"os/user"
 )
 
 var Env string

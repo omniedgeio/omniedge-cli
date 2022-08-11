@@ -3,11 +3,13 @@ package cmd
 import (
 	"errors"
 	"fmt"
+
+	"strings"
+
 	edge "github.com/omniedgeio/omniedge-cli"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"strings"
 )
 
 var rootCmd = &cobra.Command{
@@ -79,7 +81,7 @@ func loadScanResult() error {
 	viper.SetConfigFile(handledScanResultFile)
 	viper.SetConfigType("json")
 	if err = viper.ReadInConfig(); err != nil {
-		return errors.New(fmt.Sprintf("fail to read omniedge scan result, please scan first."))
+		return errors.New("fail to read omniedge scan result, please scan first.")
 	}
 	return nil
 }

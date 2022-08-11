@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/mitchellh/mapstructure"
 	edgecli "github.com/omniedgeio/omniedge-cli"
 	log "github.com/sirupsen/logrus"
