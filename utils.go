@@ -7,15 +7,16 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/panta/machineid"
-	log "github.com/sirupsen/logrus"
 	"net"
 	"os"
 	"os/user"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/google/uuid"
+	"github.com/panta/machineid"
+	log "github.com/sirupsen/logrus"
 )
 
 var Env string

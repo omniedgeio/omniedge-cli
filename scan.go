@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
+
 	"github.com/Ullaakut/nmap/v2"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 type ScanOption struct {

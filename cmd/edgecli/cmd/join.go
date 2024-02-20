@@ -2,12 +2,13 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/manifoldco/promptui"
 	edge "github.com/omniedgeio/omniedge-cli"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"strings"
 )
 
 var joinCmd = &cobra.Command{
