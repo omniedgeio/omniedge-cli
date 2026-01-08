@@ -1,5 +1,6 @@
 #!/bin/sh
 ./autogen.sh
+[ -f Makefile ] && make clean
 
 arch=${GOARCH:-$(go env GOARCH)}
 OS_V=$(uname)

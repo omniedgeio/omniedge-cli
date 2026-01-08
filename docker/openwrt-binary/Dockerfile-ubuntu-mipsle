@@ -23,9 +23,9 @@ COPY . .
 RUN rm -f go.work
 RUN export GOROOT_BOOTSTRAP=/go && \
     mkdir golang && \
-    wget https://go.dev/dl/go1.18.5.src.tar.gz && \
-    mv go1.18.5.src.tar.gz golang/ && cd golang/ && \
-    tar -xvf go1.18.5.src.tar.gz && \
+    wget https://go.dev/dl/go1.23.0.src.tar.gz && \
+    mv go1.23.0.src.tar.gz golang/ && cd golang/ && \
+    tar -xvf go1.23.0.src.tar.gz && \
     cd go/src/ && GOOS=linux GOARCH=mipsle GOMIPS=softfloat ./make.bash && \
     cd .. && ls pkg && ls bin
 
@@ -46,7 +46,7 @@ RUN cp -r /golang/go /usr/local/ && \
     export CC=/openwrt-sdk/staging_dir/toolchain-mipsel_24kc_gcc-7.3.0_musl/bin/mipsel-openwrt-linux-gcc  && \
     export CXX=/openwrt-sdk/staging_dir/toolchain-mipsel_24kc_gcc-7.3.0_musl/bin/mipsel-openwrt-linux-g++ && \
     export STAGING_DIR=/openwrt-sdk/staging_dir && \
-    cd /app && cat internal/make_n2n && CGO_ENABLED=1 GOOS=linux GOARCH=mipsle GOMIPS=softfloat VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build && \
+    cd /app && cat internal/coren2n/make_n2n && CGO_ENABLED=1 GOOS=linux GOARCH=mipsle GOMIPS=softfloat VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build && \
     upx -9 -k /app/out/omniedge && \
     zip -j /app/out/omniedge.zip /app/out/omniedge
 
