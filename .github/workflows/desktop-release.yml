@@ -338,6 +338,12 @@ jobs:
           # Copy helper
           cp bin/omniedge-helper bin/OmniEdge.app/Contents/MacOS/
           
+          # Remove extended attributes
+          xattr -cr bin/OmniEdge.app
+          
+          # Sign the helper
+          codesign --force --sign - bin/OmniEdge.app/Contents/MacOS/omniedge-helper
+          
           # Sign the app
           codesign --force --deep --sign - bin/OmniEdge.app
           
