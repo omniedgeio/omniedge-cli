@@ -6,7 +6,7 @@ ARG VERSION
 
 # Install all needed packages
 RUN apt-get update && \
-    apt-get install -y wget make git autoconf automake build-essential software-properties-common
+    apt-get install -y wget make git autoconf automake build-essential libtool patch pkg-config software-properties-common
 
 RUN add-apt-repository ppa:longsleep/golang-backports -y && \ 
     apt-get update && \

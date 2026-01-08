@@ -5,7 +5,7 @@ ARG OPENWRT_SDK=https://downloads.openwrt.org/releases/23.05.0/targets/x86/64/op
 
 # install build tools
 RUN apt update
-RUN apt -y install wget make git automake build-essential autoconf openssl gzip libssl-dev zip xz-utils
+RUN apt -y install wget make git automake build-essential autoconf libtool patch pkg-config openssl gzip libssl-dev zip xz-utils
 
 RUN wget -O openwrt-sdk.tar.xz ${OPENWRT_SDK}
 RUN xz -q -d openwrt-sdk.tar.xz && tar -xvf openwrt-sdk.tar

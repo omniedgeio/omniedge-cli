@@ -8,8 +8,7 @@ ARG OPENWRT_SDK=https://downloads.openwrt.org/releases/18.06.9/targets/ramips/mt
 
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get update
-RUN apt-get install -y wget make curl git autoconf automake build-essential pkg-config openssl gzip libssl-dev zip upx
+RUN apt update && apt -y install wget make git automake build-essential autoconf libtool patch pkg-config openssl gzip libssl-dev zip xz-utils
 
 WORKDIR /
 
