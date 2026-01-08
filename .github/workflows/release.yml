@@ -479,6 +479,14 @@ jobs:
           event-type: cli-release
           client-payload: '{"version": "${{ steps.version.outputs.version }}", "tag": "${{ steps.version.outputs.tag }}"}'
 
+      - name: Trigger omniedge sync
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: omniedgeio/omniedge
+          event-type: cli-sync
+          client-payload: '{"version": "${{ steps.version.outputs.version }}", "tag": "${{ steps.version.outputs.tag }}"}'
+
       - name: Summary
         run: |
           echo "## 🚀 Triggered Dependency Updates" >> $GITHUB_STEP_SUMMARY

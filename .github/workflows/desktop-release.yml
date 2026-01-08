@@ -386,6 +386,14 @@ jobs:
           event-type: desktop-release
           client-payload: '{"version": "${{ steps.version.outputs.version }}", "tag": "${{ steps.version.outputs.tag }}", "package": "desktop"}'
 
+      - name: Trigger omniedge sync
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: omniedgeio/omniedge
+          event-type: cli-sync
+          client-payload: '{"version": "${{ steps.version.outputs.version }}", "tag": "${{ steps.version.outputs.tag }}"}'
+
       - name: Summary
         run: |
           echo "## 🚀 OmniEdge Desktop ${{ steps.version.outputs.version }} Released" >> $GITHUB_STEP_SUMMARY
