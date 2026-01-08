@@ -36,15 +36,15 @@ RUN cp -r /golang/go /usr/local/ && \
     export GOBIN=$GOROOT/bin &&  \
     export GOPATH=/ && \
     export GOWORK=off && \
-    export PATH=$PATH:$GOBIN:GOPATH/bin && \
+    export PATH=$PATH:$GOBIN:$GOPATH/bin && \
     echo $PATH && go version && \
     cd / && \
     wget https://downloads.openwrt.org/releases/19.07.9/targets/ar71xx/generic/openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \
-    tar -xf openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \ 
+    tar -xf openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \
     mv openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64 openwrt_19.07.09-ar71xx && \
     rm -rf /go_bootstrap && \
     rm openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \
-    export CC=/openwrt_19.07.09-ar71xx/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/bin/mips-openwrt-linux-gcc && \ 
+    export CC=/openwrt_19.07.09-ar71xx/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/bin/mips-openwrt-linux-gcc && \
     export CXX=/openwrt_19.07.09-ar71xx/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/bin/mips-openwrt-linux-g++ && \
     export STAGING_DIR=/openwrt_19.07.09-ar71xx/staging_dir && \
     cd /app && cat internal/coren2n/make_n2n && CGO_ENABLED=1 GOOS=linux GOARCH=mips GOMIPS=softfloat VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build && \

@@ -365,18 +365,26 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 
-  # Summary job
-  release-summary:
-    name: Release Summary
+  notify:
+    name: Trigger updates in dependent repos
     runs-on: ubuntu-latest
+    if: "startsWith(github.ref, 'refs/tags/')"
     needs: [build-windows, build-linux, build-macos]
-    if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Get version
+      - name: Get release version
         id: version
         run: |
           VERSION="${GITHUB_REF#refs/tags/v}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Trigger omniedge-web-frontend
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+          repository: omniedgeio/omniedge-web-frontend
+          event-type: desktop-release
+          client-payload: '{"version": "${{ steps.version.outputs.version }}", "tag": "${{ steps.version.outputs.tag }}", "package": "desktop"}'
 
       - name: Summary
         run: |
@@ -396,3 +404,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "#### macOS" >> $GITHUB_STEP_SUMMARY
           echo "- **DMG**: omniedge-desktop-${{ steps.version.outputs.version }}-macos-arm64.dmg (Apple Silicon)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Triggered Dependency Updates" >> $GITHUB_STEP_SUMMARY
+          echo "- **omniedge-web-frontend** (desktop package update)" >> $GITHUB_STEP_SUMMARY

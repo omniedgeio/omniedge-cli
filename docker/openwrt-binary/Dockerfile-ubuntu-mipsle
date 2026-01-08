@@ -29,13 +29,13 @@ RUN export GOROOT_BOOTSTRAP=/go_bootstrap && \
     cd go/src/ && GOOS=linux GOARCH=mipsle GOMIPS=softfloat ./make.bash && \
     cd .. && ls pkg && ls bin
 
-RUN cp -r /golang/go /usr/local/ && \
+RUN cp -r /app/golang/go /usr/local/ && \
     export GOROOT_BOOTSTRAP=/usr/local/go && \
     export GOROOT=/usr/local/go && \
     export GOBIN=$GOROOT/bin &&  \
     export GOPATH=/ && \
     export GOWORK=off && \
-    export PATH=$PATH:$GOBIN:GOPATH/bin && \
+    export PATH=$PATH:$GOBIN:$GOPATH/bin && \
     echo $PATH && go version && \
     cd / && \
     wget -O openwrt-sdk.tar.xz ${OPENWRT_SDK} && \
