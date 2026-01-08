@@ -20,7 +20,7 @@ ARG BUILD_ENV
 ARG VERSION
 
 ENV GOWORK=off
-ENV CC=/go/openwrt-sdk/staging_dir/toolchain-x86_64_generic_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-gcc
+ENV CC=/go/openwrt-sdk/staging_dir/toolchain-x86_64_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-gcc
 ENV CXX=/go/openwrt-sdk/staging_dir/toolchain-x86_64_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-g++
 ENV CGO_ENABLED=1 
 ENV GOARCH=amd64
