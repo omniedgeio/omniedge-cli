@@ -17,7 +17,7 @@ license: "GPL-3.0"
 release: "1"
 
 contents:
-  - src: "./bin/omniedge"
+  - src: "./bin/OmniEdge"
     dst: "/usr/local/bin/omniedge"
   - src: "./bin/omniedge-helper"
     dst: "/usr/local/bin/omniedge-helper"
