@@ -89,13 +89,13 @@ jobs:
           docker cp omniedge:/app/out/omniedge .
       - name: zip
         run: |
-          zip -j ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip ./omniedge
+          zip -j ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip ./omniedge
 
       - name: Archive package
         uses: actions/upload-artifact@v4
         with:
-          path: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
-          name: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          path: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          name: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -105,7 +105,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
-          file: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          file: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
           tag: ${{ github.ref }}
   build-openwrt-1:
     name: Build openwrt binary
@@ -181,12 +181,12 @@ jobs:
       - name: copy file
         run: |
           docker cp omniedge:/app/out/omniedge.zip ./omniedge.zip
-          mv ./omniedge.zip ./omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          mv ./omniedge.zip ./omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
       - name: Archive package
         uses: actions/upload-artifact@v4
         with:
-          path: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
-          name: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          path: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          name: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -196,7 +196,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
-          file: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          file: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
           tag: ${{ github.ref }}
   build-mips-mipsle-openwrt:
     name: Build openwrt binary
@@ -219,12 +219,12 @@ jobs:
       - name: copy file
         run: |
           docker cp omniedge:/app/out/omniedge.zip ./omniedge.zip
-          mv ./omniedge.zip ./omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          mv ./omniedge.zip ./omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
       - name: Archive package
         uses: actions/upload-artifact@v4
         with:
-          path: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
-          name: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          path: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          name: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -234,7 +234,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
-          file: omniedge-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
+          file: omniedge-cli-${{ github.ref_name }}-openwrt-${{ matrix.platform }}.zip
           tag: ${{ github.ref }}
 
   build-other-binary:
@@ -271,15 +271,15 @@ jobs:
           sudo -E apt-get install -y openssl build-essential libssl-dev zip autoconf
           sudo -E apt-get install -y g++-riscv64-linux-gnu gcc-riscv64-linux-gnu
           VERSION=${{ github.ref_name }} BUILD_ENV=${{ env.ENVIRONMENT }} make build
-          zip -j ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip ./out/omniedge
-          sha256sum ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip > ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
-          cat ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
+          zip -j ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip ./out/omniedge
+          sha256sum ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip > ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
+          cat ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
 
       - name: Archive package
         uses: actions/upload-artifact@v4
         with:
-          path: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
-          name: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          path: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          name: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -289,7 +289,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
-          file: omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip
+          file: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip
           tag: ${{ github.ref }}
   build-freebsd-binary:
     runs-on: ubuntu-latest
@@ -320,13 +320,13 @@ jobs:
             export PATH="/usr/local/bin:$PATH"
             gmake generate
             VERSION=${{ github.ref_name }} BUILD_ENV=$ENVIRONMENT gmake build-freebsd
-            zip -j ./omniedge-${{ github.ref_name }}-freebsd-14.zip ./out/omniedge
+            zip -j ./omniedge-cli-${{ github.ref_name }}-freebsd-14.zip ./out/omniedge
       
       - name: Archive package
         uses: actions/upload-artifact@v4
         with:
-          path: omniedge-${{ github.ref_name }}-freebsd-14.zip
-          name: omniedge-${{ github.ref_name }}-freebsd-14.zip
+          path: omniedge-cli-${{ github.ref_name }}-freebsd-14.zip
+          name: omniedge-cli-${{ github.ref_name }}-freebsd-14.zip
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -336,7 +336,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
-          file: omniedge-${{ github.ref_name }}-freebsd-14.zip
+          file: omniedge-cli-${{ github.ref_name }}-freebsd-14.zip
           tag: ${{ github.ref }}
   build-for-distr:
     name: Build on ${{ matrix.platform }} (${{ matrix.arch }})
@@ -372,8 +372,8 @@ jobs:
           sudo -E apt-get install -y openssl build-essential libssl-dev zip
           make generate
           VERSION=${{ github.ref_name }} BUILD_ENV=${{ env.ENVIRONMENT }} make build
-          zip -j ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip ./out/omniedge
-          sha256sum ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip > ./omniedge-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
+          zip -j ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip ./out/omniedge
+          sha256sum ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip > ./omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}.zip.sha256
         
       - name: Test and output ip address
         if: startsWith(matrix.platform, 'ubuntu-22.04')
@@ -397,14 +397,14 @@ jobs:
           # Build for Intel (amd64)
           VERSION=${{ github.ref_name }} BUILD_ENV=${{ env.ENVIRONMENT }} make build-darwin-amd64
           codesign -s - ./out/omniedge
-          zip -j ./omniedge-${{ github.ref_name }}-macos-amd64.zip ./out/omniedge
-          sha256sum ./omniedge-${{ github.ref_name }}-macos-amd64.zip > ./omniedge-${{ github.ref_name }}-macos-amd64.zip.sha256
+          zip -j ./omniedge-cli-${{ github.ref_name }}-macos-amd64.zip ./out/omniedge
+          sha256sum ./omniedge-cli-${{ github.ref_name }}-macos-amd64.zip > ./omniedge-cli-${{ github.ref_name }}-macos-amd64.zip.sha256
           
           # Build for Apple Silicon (arm64)
           VERSION=${{ github.ref_name }} BUILD_ENV=${{ env.ENVIRONMENT }} make build-darwin-arm64
           codesign -s - ./out/omniedge
-          zip -j ./omniedge-${{ github.ref_name }}-macos-arm64.zip ./out/omniedge
-          sha256sum ./omniedge-${{ github.ref_name }}-macos-arm64.zip > ./omniedge-${{ github.ref_name }}-macos-arm64.zip.sha256
+          zip -j ./omniedge-cli-${{ github.ref_name }}-macos-arm64.zip ./out/omniedge
+          sha256sum ./omniedge-cli-${{ github.ref_name }}-macos-arm64.zip > ./omniedge-cli-${{ github.ref_name }}-macos-arm64.zip.sha256
           
           cat *.sha256
 
@@ -412,9 +412,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: |
-            omniedge-${{ github.ref_name }}-${{ matrix.platform }}*.zip
+            omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}*.zip
             *.sha256
-          name: omniedge-${{ github.ref_name }}-${{ matrix.platform }}
+          name: omniedge-cli-${{ github.ref_name }}-${{ matrix.platform }}
           if-no-files-found: error
           
       - name: Upload package to GitHub Release
@@ -424,6 +424,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file_glob: true
           overwrite: true
+          file: omniedge-cli-${{ github.ref_name }}-*.zip*
+          tag: ${{ github.ref }}
+
   notify:
     name: Trigger updates in dependent repos
     runs-on: ubuntu-latest

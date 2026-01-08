@@ -47,7 +47,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
           else
-            VERSION="${GITHUB_REF#refs/tags/desktop-v}"
+            VERSION="${GITHUB_REF#refs/tags/v}"
             echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
 
@@ -126,9 +126,13 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
           else
-            VERSION="${GITHUB_REF#refs/tags/desktop-v}"
+            VERSION="${GITHUB_REF#refs/tags/v}"
             echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
+
+      - name: Generate n2n library
+        run: |
+          go generate ./...
 
       - name: Build Desktop App
         working-directory: shell/desktop
@@ -296,12 +300,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
           else
-            VERSION="${GITHUB_REF#refs/tags/desktop-v}"
+            VERSION="${GITHUB_REF#refs/tags/v}"
             echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
 
       - name: Generate n2n library
-        working-directory: internal
         run: |
           go generate ./...
 
@@ -358,7 +361,7 @@ jobs:
       - name: Get version
         id: version
         run: |
-          VERSION="${GITHUB_REF#refs/tags/desktop-v}"
+          VERSION="${GITHUB_REF#refs/tags/v}"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Summary
