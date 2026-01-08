@@ -34,10 +34,10 @@ if [ "$openwrt" = 'openwrt' ]; then
 elif [ "$OS_V" = 'Darwin' ]; then
     case $arch in
         amd64)
-            ./configure CFLAGS="-DSKIP_MULTICAST_PEERS_DISCOVERY -arch x86_64" LDFLAGS="-arch x86_64"
+            ./configure --host=x86_64-apple-darwin CFLAGS="-DSKIP_MULTICAST_PEERS_DISCOVERY -arch x86_64" LDFLAGS="-arch x86_64"
             ;;
         arm64)
-            ./configure CFLAGS="-DSKIP_MULTICAST_PEERS_DISCOVERY -arch arm64" LDFLAGS="-arch arm64"
+            ./configure --host=aarch64-apple-darwin CFLAGS="-DSKIP_MULTICAST_PEERS_DISCOVERY -arch arm64" LDFLAGS="-arch arm64"
             ;;
         *)
             ./configure CFLAGS="-DSKIP_MULTICAST_PEERS_DISCOVERY"

@@ -17,8 +17,7 @@ ENV GOWORK=off
 WORKDIR /app
 
 COPY . .
-
-ENV GOARCH=${TARGETARCH}
+RUN rm -f go.work
 ENV GOOS=linux
 RUN go generate ./...
 RUN VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build

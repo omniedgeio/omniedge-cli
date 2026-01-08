@@ -29,8 +29,7 @@ RUN export GOROOT_BOOTSTRAP=/go && \
 
 WORKDIR /app
 COPY . .
-
-WORKDIR /
+RUN rm -f go.work
 
 RUN cp -r /golang/go /usr/local/ && \
     export GOROOT_BOOTSTRAP=/usr/local/go && \

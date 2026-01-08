@@ -8,8 +8,7 @@ RUN apt -y install wget make git autoconf automake build-essential
 WORKDIR /app
 
 COPY . .
-ARG BUILD_ENV
-
+RUN rm -f go.work
 ENV GOWORK=off
 ENV GOARCH=mips64le
 RUN go generate ./...
