@@ -10,15 +10,15 @@ RUN apt update && apt -y install wget curl make git automake build-essential aut
 
 WORKDIR /
 
-RUN curl -# -O https://dl.google.com/go/go1.4-bootstrap-20171003.tar.gz
-RUN tar -zxvf go1.4-bootstrap-20171003.tar.gz && \
-    cd go/src/ && \
-    GOOS=linux GOARCH=amd64 ./make.bash
-ENV GOROOT_BOOTSTRAP=/go
+RUN wget -O go_bootstrap.tar.gz https://go.dev/dl/go1.22.10.linux-amd64.tar.gz && \
+    tar -C / -xzf go_bootstrap.tar.gz && \
+    mv /go /go_bootstrap && \
+    rm go_bootstrap.tar.gz
+ENV GOROOT_BOOTSTRAP=/go_bootstrap
 
 
 WORKDIR /
-RUN export GOROOT_BOOTSTRAP=/go && \
+RUN export GOROOT_BOOTSTRAP=/go_bootstrap && \
     mkdir golang && \
     wget https://go.dev/dl/go1.23.0.src.tar.gz && \
     mv go1.23.0.src.tar.gz golang/ && cd golang/ && \
@@ -42,7 +42,7 @@ RUN cp -r /golang/go /usr/local/ && \
     wget https://downloads.openwrt.org/releases/19.07.9/targets/ar71xx/generic/openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \
     tar -xf openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \ 
     mv openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64 openwrt_19.07.09-ar71xx && \
-    rm go1.4-bootstrap-20171003.tar.gz && \
+    rm -rf /go_bootstrap && \
     rm openwrt-sdk-19.07.9-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz && \
     export CC=/openwrt_19.07.09-ar71xx/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/bin/mips-openwrt-linux-gcc && \ 
     export CXX=/openwrt_19.07.09-ar71xx/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/bin/mips-openwrt-linux-g++ && \
