@@ -1,4 +1,4 @@
-internal/n2n
+internal/coren2n/n2n
 # Binaries for programs and plugins
 *.exe
 *.exe~
