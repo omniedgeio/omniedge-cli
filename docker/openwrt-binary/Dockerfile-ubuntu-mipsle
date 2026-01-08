@@ -36,6 +36,7 @@ RUN cp -r /golang/go /usr/local/ && \
     export GOROOT=/usr/local/go && \
     export GOBIN=$GOROOT/bin &&  \
     export GOPATH=/ && \
+    export GOWORK=off && \
     export PATH=$PATH:$GOBIN:GOPATH/bin && \
     echo $PATH && go version && \
     cd / && \

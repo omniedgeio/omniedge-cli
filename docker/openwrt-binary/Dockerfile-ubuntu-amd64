@@ -1,5 +1,5 @@
 #golang:amd64 for OpenWrt cross-compilation
-FROM amd64/golang:1.21-bookworm
+FROM amd64/golang:1.23-bookworm
 
 ARG OPENWRT_SDK=https://downloads.openwrt.org/releases/23.05.0/targets/x86/64/openwrt-sdk-23.05.0-x86-64_gcc-12.3.0_musl.Linux-x86_64.tar.xz
 
@@ -20,7 +20,8 @@ RUN /go/openwrt-sdk/staging_dir/toolchain-x86_64_gcc-12.3.0_musl/bin/x86_64-open
 ARG BUILD_ENV
 ARG VERSION
 
-ENV CC=/go/openwrt-sdk/staging_dir/toolchain-x86_64_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-gcc
+ENV GOWORK=off
+ENV CC=/go/openwrt-sdk/staging_dir/toolchain-x86_64_generic_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-gcc
 ENV CXX=/go/openwrt-sdk/staging_dir/toolchain-x86_64_gcc-12.3.0_musl/bin/x86_64-openwrt-linux-g++
 ENV CGO_ENABLED=1 
 ENV GOARCH=amd64

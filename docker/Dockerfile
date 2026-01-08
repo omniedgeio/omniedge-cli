@@ -10,8 +10,10 @@ RUN apt-get update && \
 
 RUN add-apt-repository ppa:longsleep/golang-backports -y && \ 
     apt-get update && \
-    apt-get install -y golang-go 
+    apt-get install -y golang-1.23-go && \
+    ln -sf /usr/lib/go-1.23/bin/go /usr/local/bin/go
 
+ENV GOWORK=off
 WORKDIR /app
 
 COPY . .

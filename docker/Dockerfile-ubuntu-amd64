@@ -1,5 +1,5 @@
 #golang:amd64
-FROM golang:1.21-bookworm
+FROM golang:1.23-bookworm
 
 # install build tools
 RUN apt update
@@ -11,6 +11,7 @@ COPY . .
 ARG BUILD_ENV
 ARG VERSION
 
+ENV GOWORK=off
 ENV GOARCH=amd64
 RUN go generate ./...
 RUN VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build

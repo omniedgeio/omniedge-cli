@@ -10,6 +10,7 @@ WORKDIR /app
 COPY . .
 ARG BUILD_ENV
 
+ENV GOWORK=off
 ENV GOARCH=s390x
 RUN go generate ./...
 RUN BUILD_ENV=$BUILD_ENV make build

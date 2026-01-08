@@ -1,0 +1,5 @@
+go.work
+shell/desktop
+bin
+out
+!internal/n2n

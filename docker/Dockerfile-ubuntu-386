@@ -1,5 +1,5 @@
-#golang:i386
-FROM i386/golang:1.18
+#golang:386
+FROM i386/golang:1.23-bookworm
 
 # install golang
 RUN apt update
@@ -10,6 +10,7 @@ WORKDIR /app
 COPY . .
 ARG BUILD_ENV
 
+ENV GOWORK=off
 ENV GOARCH=386
 RUN go generate ./...
 RUN BUILD_ENV=$BUILD_ENV make build

@@ -1,5 +1,5 @@
 #golang:armv7
-FROM arm32v7/golang:1.21-bookworm
+FROM arm32v7/golang:1.23-bookworm
 
 # install build tools
 RUN apt update
@@ -11,6 +11,7 @@ COPY . .
 ARG BUILD_ENV
 ARG VERSION
 
+ENV GOWORK=off
 ENV GOARCH=arm
 RUN go generate ./...
 RUN VERSION=$VERSION BUILD_ENV=$BUILD_ENV make build
